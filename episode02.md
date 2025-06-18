@@ -1,4 +1,4 @@
-**Episode-02 | Features, HLD, LLD and Planning**
+## Episode-02 | Features, HLD, LLD and Planning
 
 We'll be building the **DevTinder** app
 

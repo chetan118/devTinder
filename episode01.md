@@ -1,4 +1,4 @@
-**Episode-01 | Micorservices vs Monolith - How to Build a Project**
+## Episode-01 | Micorservices vs Monolith - How to Build a Project
 
 > SDLC - Waterfall Model
 
@@ -11,16 +11,18 @@
 
 > Monolith vs Micorservices
 
-_Monolith (MO)_
+**Monolith (MO)**
 
 - One single project repository
 - Has everything in one repo - Backend code / DB connections / Frontend code / Auth / Emails / Analytics
 
-_Microservices (MS)_
+**Microservices (MS)**
 
 - Build small projects for each service
 - Separate code repos for each service
 - Example - Uber has microservices for Payment Calculation / Fraud Detection etc
+
+**Comparisons (as per Akshay Saini)**
 
 _Dev Speed_
 
@@ -52,7 +54,7 @@ _Complexity_
 
 _Fault Isolation_
 
-- One LOC fail can make the entire project to go down in MO, while in MS analytics might go down
+- One line of code failure can make the entire project to go down in MO, while in MS a service might go down (for example Analytics)
 - Tough in MO, Easier in MS
 
 _Testing_
@@ -77,7 +79,7 @@ _Debugging_
 - MO slightly easier to debug
 - MS can have blame games among teams
 
-_Dev Experience_
+_Overall Dev Experience_
 
 - Akshay prefers microservices architecture
 

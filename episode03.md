@@ -1,4 +1,4 @@
-**Episode-03 | Creating our Express Server**
+## Episode-03 | Creating our Express Server
 
 - Create a repository
 - Initialize the repository
