@@ -3,14 +3,11 @@ const app = express();
 const { connectDB } = require("./config/database");
 const { User } = require("./models/user");
 
+app.use(express.json()); // middleware for converting JSON data in req.body to JS object
+
 app.post("/signup", async (req, res) => {
   // create a new instance of the User Model
-  const user = new User({
-    firstName: "Virat",
-    lastName: "Kohli",
-    emailId: "virat@abc.com",
-    password: "virat@123",
-  });
+  const user = new User(req.body);
   try {
     await user.save();
     res.send("User Saved to the Database");
@@ -18,6 +15,7 @@ app.post("/signup", async (req, res) => {
     res.status(400).send("Failed to save User to the Database " + err.message);
   }
 });
+
 connectDB()
   .then(() => {
     console.log("Database connection established...");
