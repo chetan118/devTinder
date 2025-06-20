@@ -29,6 +29,82 @@ app.get("/user", async (req, res) => {
   }
 });
 
+app.get("/userById", async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    if (!user) {
+      res.status(404).send("User Not Found");
+    } else {
+      res.send(user);
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong " + err.message);
+  }
+});
+
+app.delete("/user", async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete({ _id: req.body.userId });
+    if (!user) {
+      res.status(404).send("User Not Found");
+    } else {
+      res.send("User has been deleted");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong " + err.message);
+  }
+});
+
+app.patch("/user", async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.body.userId, req.body);
+    if (!user) {
+      res.status(404).send("User Not Found");
+    } else {
+      console.log("User Before Update", user);
+      res.send("User has been updated");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong " + err.message);
+  }
+});
+
+app.patch("/userByEmail", async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { emailId: req.body.emailId },
+      req.body
+    );
+    if (!user) {
+      res.status(404).send("User Not Found");
+    } else {
+      console.log("User Before Update", user);
+      res.send("User has been updated");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong " + err.message);
+  }
+});
+
+app.put("/userByEmail", async (req, res) => {
+  try {
+    // maybe we should use findOneAndReplace for put requests
+    const user = await User.findOneAndUpdate(
+      { emailId: req.body.emailId },
+      req.body,
+      { upsert: true }
+    );
+    if (!user) {
+      res.status(404).send("User Not Found, new user created");
+    } else {
+      console.log("User Before Update", user);
+      res.send("User has been updated");
+    }
+  } catch (err) {
+    res.status(400).send("Something went wrong " + err.message);
+  }
+});
+
 app.get("/feed", async (req, res) => {
   try {
     const users = await User.find({});

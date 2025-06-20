@@ -32,3 +32,11 @@
 - `User.findOne()` with duplicate email ids, which object will be returned?
   - MongoDB and by extension Mongoose, does not guarantee a specfic order for documents
     returned by `findOne()` unless you use the `sort()` method
+- API - Get user by ID
+- Create a delete user API
+- Difference between PATCH and PUT?
+  - PUT is used to replace an entire resource, while PATCH is used to partially update a resource, modifying only the specified fields.
+- API - Update a user
+- Explore the Mongoose Documentation for Model methods
+- What are options in a Model.findOneAndUpdate method, explore more about it
+- API - Update the user with email ID
