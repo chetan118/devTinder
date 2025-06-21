@@ -57,7 +57,9 @@ app.delete("/user", async (req, res) => {
 
 app.patch("/user", async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.body.userId, req.body);
+    const user = await User.findByIdAndUpdate(req.body.userId, req.body, {
+      runValidators: true,
+    });
     if (!user) {
       res.status(404).send("User Not Found");
     } else {
@@ -73,7 +75,8 @@ app.patch("/userByEmail", async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { emailId: req.body.emailId },
-      req.body
+      req.body,
+      { runValidators: true }
     );
     if (!user) {
       res.status(404).send("User Not Found");
@@ -92,7 +95,7 @@ app.put("/userByEmail", async (req, res) => {
     const user = await User.findOneAndUpdate(
       { emailId: req.body.emailId },
       req.body,
-      { upsert: true }
+      { upsert: true, runValidators: true }
     );
     if (!user) {
       res.status(404).send("User Not Found, new user created");
