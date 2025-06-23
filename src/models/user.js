@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,13 +22,22 @@ const userSchema = new mongoose.Schema(
       maxLength: 150,
       lowercase: true,
       trim: true,
-      match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
+      validate(emailId) {
+        if (!validator.isEmail(emailId)) {
+          throw new Error("Invalid Email Address: " + emailId);
+        }
+      },
     },
     password: {
       type: String,
       required: true,
       minLength: 6,
       maxLength: 48,
+      validate(password) {
+        if (!validator.isStrongPassword(password)) {
+          throw new Error("Enter a strong password");
+        }
+      },
     },
     age: {
       type: Number,
@@ -52,6 +62,11 @@ const userSchema = new mongoose.Schema(
           new URL(photoUrl);
         } catch (e) {
           throw new Error(`${photoUrl} is not a valid url!`);
+        }
+      },
+      validate(photoUrl) {
+        if (!validator.isURL(photoUrl)) {
+          throw new Error("Invalid Photo URL: " + photoUrl);
         }
       },
     },
