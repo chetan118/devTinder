@@ -2,21 +2,27 @@ const express = require("express");
 const app = express();
 const { connectDB } = require("./config/database");
 const { User } = require("./models/user");
+const { validateSignupData } = require("./utils/validation");
+const bcrypt = require("bcrypt");
 
 app.use(express.json()); // middleware for converting JSON data in req.body to JS object
 
 app.post("/signup", async (req, res) => {
   try {
-    const ALLOWED_FIELDS = ["firstname", "lastname", "password", "emailId"];
+    // Validation of Data
+    validateSignupData(req);
+    const { firstName, lastName, emailId, password } = req.body;
 
-    const isAllowedSignUp = Object.keys(req.body).every((k) =>
-      ALLOWED_FIELDS.includes(k)
-    );
-    if (!isAllowedSignUp) {
-      throw new Error(`Allowed Fields -> [${ALLOWED_FIELDS.slice()}]`);
-    }
-    // create a new instance of the User Model
-    const user = new User(req.body);
+    // Encrypt the password
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Create a new instance of the User Model
+    const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash,
+    });
     await user.save();
     res.send("User Saved to the Database");
   } catch (err) {

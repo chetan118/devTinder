@@ -23,7 +23,7 @@ _HLD - 2 microservices_
 
 _LLD - DB Design_
 
-1. User - firstname, lastname, emailId, password, age, gender
+1. User - firstName, lastName, emailId, password, age, gender
 2. ConnectionRequest - fromUserId, toUserId, status (ignored, pending, accepted, rejected)
 
 _API Design (REST API) - GET, POST, PUT, PATCH, DELETE_
