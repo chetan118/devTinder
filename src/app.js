@@ -3,6 +3,7 @@ const app = express();
 const { connectDB } = require("./config/database");
 const { User } = require("./models/user");
 const { validateSignupData } = require("./utils/validation");
+const validator = require("validator");
 const bcrypt = require("bcrypt");
 
 app.use(express.json()); // middleware for converting JSON data in req.body to JS object
@@ -27,6 +28,26 @@ app.post("/signup", async (req, res) => {
     res.send("User Saved to the Database");
   } catch (err) {
     res.status(400).send("Failed to save User to the Database " + err.message);
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { emailId, password } = req.body;
+    if (!validator.isEmail(emailId)) {
+      throw new Error("Invalid Email Address " + emailId);
+    }
+    const user = await User.findOne({ emailId: emailId });
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new Error("Invalid credentials");
+    }
+    res.send("User successfully logged in");
+  } catch (err) {
+    res.status(400).send("Failed to login " + err.message);
   }
 });
 
