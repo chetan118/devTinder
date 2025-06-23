@@ -6,9 +6,17 @@ const { User } = require("./models/user");
 app.use(express.json()); // middleware for converting JSON data in req.body to JS object
 
 app.post("/signup", async (req, res) => {
-  // create a new instance of the User Model
-  const user = new User(req.body);
   try {
+    const ALLOWED_FIELDS = ["firstname", "lastname", "password", "emailId"];
+
+    const isAllowedSignUp = Object.keys(req.body).every((k) =>
+      ALLOWED_FIELDS.includes(k)
+    );
+    if (!isAllowedSignUp) {
+      throw new Error(`Allowed Fields -> [${ALLOWED_FIELDS.slice()}]`);
+    }
+    // create a new instance of the User Model
+    const user = new User(req.body);
     await user.save();
     res.send("User Saved to the Database");
   } catch (err) {
@@ -55,9 +63,21 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-app.patch("/user", async (req, res) => {
+app.patch("/user/:userId", async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.body.userId, req.body, {
+    const userId = req.params?.userId;
+    const ALLOWED_UPDATES = ["gender", "photoUrl", "about", "skills"];
+
+    const isAllowedUpdates = Object.keys(req.body).every((k) =>
+      ALLOWED_UPDATES.includes(k)
+    );
+    if (!isAllowedUpdates) {
+      throw new Error(`Allowed Updates -> [${ALLOWED_UPDATES.slice()}]`);
+    }
+    if (req.body.skills.length > 10) {
+      throw new Error("No more than 10 skills allowed per user");
+    }
+    const user = await User.findByIdAndUpdate(userId, req.body, {
       runValidators: true,
     });
     if (!user) {
@@ -67,7 +87,7 @@ app.patch("/user", async (req, res) => {
       res.send("User has been updated");
     }
   } catch (err) {
-    res.status(400).send("Something went wrong " + err.message);
+    res.status(400).send("User Update Failed: " + err.message);
   }
 });
 
