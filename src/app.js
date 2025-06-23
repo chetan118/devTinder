@@ -5,8 +5,11 @@ const { User } = require("./models/user");
 const { validateSignupData } = require("./utils/validation");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 app.use(express.json()); // middleware for converting JSON data in req.body to JS object
+app.use(cookieParser()); // middleware for parsing cookies in requests
 
 app.post("/signup", async (req, res) => {
   try {
@@ -45,9 +48,35 @@ app.post("/login", async (req, res) => {
     if (!isPasswordValid) {
       throw new Error("Invalid credentials");
     }
+    const token = jwt.sign({ _id: user._id }, "DevTinderSecretKey");
+    res.cookie("token", token);
     res.send("User successfully logged in");
   } catch (err) {
     res.status(400).send("Failed to login " + err.message);
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  try {
+    const cookies = req.cookies;
+
+    const { token } = cookies;
+    if (!token) {
+      throw new Error("Invalid Token");
+    }
+    const decodedToken = await jwt.verify(token, "DevTinderSecretKey");
+
+    const { _id } = decodedToken;
+    if (!_id) {
+      throw new Error("UserId not found");
+    }
+    const user = await User.findById(_id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    res.send(user);
+  } catch (err) {
+    res.status(400).send("Failed to fetch profile - " + err.message);
   }
 });
 
