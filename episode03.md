@@ -1,4 +1,6 @@
-## Episode-03 | Creating our Express Server
+# Episode-03 | Creating our Express Server
+
+## TODOs
 
 - Create a repository
 - Initialize the repository

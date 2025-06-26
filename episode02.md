@@ -1,8 +1,8 @@
-## Episode-02 | Features, HLD, LLD and Planning
+# Episode-02 | Features, HLD, LLD and Planning
 
 We'll be building the **DevTinder** app
 
-> Requirement Gathering
+## Requirement Gathering
 
 This will be a Tinder like platform for developers with the following requirements
 
@@ -14,19 +14,19 @@ This will be a Tinder like platform for developers with the following requiremen
 6. See our matches
 7. See the requests we've sent/received
 
-> Tech Planning
+## Tech Planning
 
-_HLD - 2 microservices_
+### _HLD - 2 microservices_
 
 1. Frontend - React
 2. Backend - NodeJS, MongoDB, Security - JWT Token (Oauth 2)
 
-_LLD - DB Design_
+### _LLD - DB Design_
 
 1. User - firstName, lastName, emailId, password, age, gender
 2. ConnectionRequest - fromUserId, toUserId, status (ignored, pending, accepted, rejected)
 
-_API Design (REST API) - GET, POST, PUT, PATCH, DELETE_
+### _API Design (REST API) - GET, POST, PUT, PATCH, DELETE_
 
 - POST /signup
 - POST /login

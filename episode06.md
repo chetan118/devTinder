@@ -1,4 +1,6 @@
-## Episode-06 | Database, Schema & Models | Mongoose
+# Episode-06 | Database, Schema & Models | Mongoose
+
+## TODOs
 
 - Create a free cluster on MongoDB official website (Mongo Atlas) - already done in season 1
 - Install mongoose library

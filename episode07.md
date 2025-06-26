@@ -1,4 +1,6 @@
-## Episode-07 | Diving into the APIs
+# Episode-07 | Diving into the APIs
+
+## TODOs
 
 - Differnce between JS object and JSON?
 

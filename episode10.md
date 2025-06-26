@@ -1,6 +1,6 @@
-## Episode-10 | Authentication, JWT & Cookies
+# Episode-10 | Authentication, JWT & Cookies
 
-**Overview**
+## Overview
 
 - User/Client makes login request with email and password
 - Server then
@@ -17,6 +17,8 @@
 - The connection is then closed
 - For each new api call, a new connection is opened
 - When the cookie expires, the validation at the server fails and it redirects the user to the login page
+
+## TODOs
 
 - Install cookie-parser
 - Just send a dummy cookie to user

@@ -1,4 +1,6 @@
-## Episode-08 | Data Sanitization & Schema Validations
+# Episode-08 | Data Sanitization & Schema Validations
+
+## TODOs
 
 - Explore schematype options from the documentation
 - Add required, unique, lowercase, min, minLength, trim

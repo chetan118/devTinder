@@ -1,4 +1,6 @@
-## Episode-09 | Encrypting Passwords
+# Episode-09 | Encrypting Passwords
+
+## TODOs
 
 - Validate data in Signup API
 - Install brypt package
