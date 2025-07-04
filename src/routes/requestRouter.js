@@ -1,22 +1,49 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const { User } = require("../models/user");
+const { ConnectionRequest } = require("../models/connectionRequest");
 
 const requestRouter = express.Router();
 
-requestRouter.post("/send/interested/:userId", userAuth, async (req, res) => {
+requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
   try {
-    // Logic for sending connection request
-    const userId = req.params.userId;
-    const requestedUser = await User.findById(userId);
-    if (!requestedUser) {
-      throw new Error("Requested User not found");
+    const fromUserId = req.user._id;
+    const status = req.params.status;
+    const toUserId = req.params.toUserId;
+    const allowedStatuses = ["ignored", "interested"];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({
+        message: `Invalid status: {status}`,
+      });
     }
-    res.send(
-      req.user.firstName +
-        " sent a connection request to " +
-        requestedUser.firstName
-    );
+    const toUser = await User.findById(toUserId);
+    if (!toUser) {
+      throw new Error("Invalid toUserId: " + toUserId);
+    }
+    const existingConnectionRequest = await ConnectionRequest.findOne({
+      $or: [
+        { fromUserId, toUserId },
+        { fromUserId: toUserId, toUserId: fromUserId },
+      ],
+    });
+    if (existingConnectionRequest) {
+      return res.status(400).json({
+        message: "Connection request already exists",
+      });
+    }
+    const connectionRequest = new ConnectionRequest({
+      fromUserId,
+      toUserId,
+      status,
+    });
+    const data = await connectionRequest.save();
+    res.json({
+      message:
+        status === "ignored"
+          ? `${req.user.firstName} has ${status} ${toUser.firstName}`
+          : `${req.user.firstName} is ${status} in ${toUser.firstName}`,
+      data,
+    });
   } catch (err) {
     res.status(400).send("Failed to send connection request - " + err.message);
   }
