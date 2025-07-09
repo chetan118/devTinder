@@ -6,3 +6,4 @@
 - Thought process - POST vs GET
 - Read about ref and populate -> https://mongoosejs.com/docs/populate.html
 - Create GET /user/requests/received with all the checks
+- Create GET /user/connections
