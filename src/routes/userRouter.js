@@ -53,11 +53,36 @@ userRouter.get("/connections", userAuth, async (req, res) => {
 
 userRouter.get("/feed", userAuth, async (req, res) => {
   try {
-    const users = await User.find({});
+    const loggedInUser = req.user;
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 50 ? 50 : limit;
+    const skip = (page - 1) * limit;
+
+    const connectionRequests = await ConnectionRequest.find({
+      $or: [{ toUserId: loggedInUser._id }, { fromUserId: loggedInUser._id }],
+    });
+
+    const hideUsersFromFeed = new Set().add(loggedInUser._id.toString());
+    connectionRequests.forEach((connectionRequest) => {
+      hideUsersFromFeed.add(connectionRequest.toUserId.toString());
+      hideUsersFromFeed.add(connectionRequest.fromUserId.toString());
+    });
+    const users = await User.find({
+      _id: { $nin: Array.from(hideUsersFromFeed) },
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
     if (users.length === 0) {
       res.status(404).send("No users found");
     } else {
-      res.send(users);
+      res.json({
+        message: "Users fetched successfully",
+        page,
+        no_of_users: users.length,
+        users,
+      });
     }
   } catch (err) {
     res.status(400).send("Something went wrong " + err.message);
