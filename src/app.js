@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const { connectDB } = require("./config/database");
 const { authRouter } = require("./routes/authRouter");
 const { profileRouter } = require("./routes/profileRouter");
@@ -8,6 +9,12 @@ const { userRouter } = require("./routes/userRouter");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json()); // middleware for converting JSON data in req.body to JS object
 app.use(cookieParser()); // middleware for parsing cookies in requests
 
