@@ -62,14 +62,21 @@ requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
       _id: requestId,
       status: "interested",
       toUserId: loggedInUser._id,
-    });
+    }).populate(
+      "fromUserId",
+      "firstName lastName age gender photoUrl about skills"
+    );
     if (!connectionRequest) {
       return res.status(404).json({ message: "Connection request not found" });
     }
     connectionRequest.status = status;
     const data = await connectionRequest.save();
     res.json({
-      message: "Connection request " + status,
+      message:
+        "Connection request from " +
+        connectionRequest.fromUserId.firstName +
+        " was " +
+        status,
       data,
     });
   } catch (err) {
