@@ -22,8 +22,12 @@ authRouter.post("/signup", async (req, res) => {
       emailId,
       password: passwordHash,
     });
-    await user.save();
-    res.send("User Saved to the Database");
+    const savedUser = await user.save();
+    const token = await savedUser.getJWT();
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 7 * 24 * 3600000),
+    });
+    res.json({ message: "User Saved to the Database", data: savedUser });
   } catch (err) {
     res.status(400).send("Failed to save User to the Database " + err.message);
   }
