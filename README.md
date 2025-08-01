@@ -1,4 +1,4 @@
-# Dev Tinder
+# Dev Tinder (backend)
 
 This will be a Tinder like platform for developers built as a part of the Namaste NodeJS course by Akshay Saini.
 
