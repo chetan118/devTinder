@@ -5,6 +5,8 @@ const { ConnectionRequest } = require("../models/connectionRequest");
 
 const requestRouter = express.Router();
 
+const sendEmail = require("../utils/sendEmail");
+
 requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
   try {
     const fromUserId = req.user._id;
@@ -37,6 +39,14 @@ requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
       status,
     });
     const data = await connectionRequest.save();
+
+    if (status === "interested") {
+      const subject = `A new request from ${req.user.firstName}`;
+      const body = `${req.user.firstName} is ${status} in ${toUser.firstName}`;
+      const emailRes = await sendEmail.run(subject, body);
+      console.log(emailRes);
+    }
+
     res.json({
       message:
         status === "ignored"
