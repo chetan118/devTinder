@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
 const { connectDB } = require("./config/database");
 const { authRouter } = require("./routes/authRouter");
 const { profileRouter } = require("./routes/profileRouter");
@@ -26,7 +27,7 @@ app.use("/", authRouter);
 connectDB()
   .then(() => {
     console.log("Database connection established...");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is running and listening on port 7777...");
     });
   })
