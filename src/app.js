@@ -7,6 +7,7 @@ const { authRouter } = require("./routes/authRouter");
 const { profileRouter } = require("./routes/profileRouter");
 const { requestRouter } = require("./routes/requestRouter");
 const { userRouter } = require("./routes/userRouter");
+require("./utils/cronjob");
 
 const app = express();
 
