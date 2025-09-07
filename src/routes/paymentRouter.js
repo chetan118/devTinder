@@ -1,12 +1,12 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
-const { razorpayInstance } = require("../utils/razorpay");
+const { instance: razorpayInstance } = require("../utils/razorpay.js"); // destructure and rename the razorpay instance object
+const { Payment } = require("../models/payment");
 
 const paymentRouter = express.Router();
 
 paymentRouter.post("/create", userAuth, async (req, res) => {
   try {
-    console.log("Payment Creation Logic");
     const order = await razorpayInstance.orders.create({
       amount: 50000,
       currency: "INR",
@@ -18,10 +18,17 @@ paymentRouter.post("/create", userAuth, async (req, res) => {
         membershipType: "silver",
       },
     });
-    // save the order in the database
-    console.log(order);
-    // return back the order details to the frontend from where this endpoint was called
-    res.json({ order });
+    const payment = new Payment({
+      userId: req.user._id,
+      orderId: order.id,
+      status: order.status,
+      amount: order.amount,
+      currency: order.currency,
+      receipt: order.receipt,
+      notes: order.notes,
+    });
+    const savedPayment = await payment.save();
+    res.json({ ...savedPayment.toJSON() });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ msg: err.message });
