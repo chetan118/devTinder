@@ -89,4 +89,16 @@ userRouter.get("/feed", userAuth, async (req, res) => {
   }
 });
 
+userRouter.get("/ispremium", userAuth, async (req, res) => {
+  try {
+    const user = req.user.toJSON();
+    if (user.isPremium) {
+      return res.json({ isPremium: true });
+    }
+    return res.json({ isPremium: false });
+  } catch (err) {
+    res.status(400).send("Error checking if user is premium " + err.message);
+  }
+});
+
 module.exports = { userRouter };
