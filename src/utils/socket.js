@@ -24,10 +24,13 @@ const initializeSocket = (server) => {
     });
     socket.on(
       "sendMessage",
-      async ({ firstName, userId, targetUserId, text }) => {
+      async ({ firstName, lastName, userId, targetUserId, text }) => {
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(firstName + " : " + text);
+
+          // TODO : Check if userId and targetUserId are connected
+          // i.e. existing connection request in accepted state
 
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },
@@ -44,7 +47,7 @@ const initializeSocket = (server) => {
           });
           await chat.save();
 
-          io.to(roomId).emit("messageReceived", { firstName, text });
+          io.to(roomId).emit("messageReceived", { firstName, lastName, text });
         } catch (err) {
           console.log("Error saving message to the database", err);
         }
