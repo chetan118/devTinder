@@ -15,7 +15,7 @@ requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
     const allowedStatuses = ["ignored", "interested"];
     if (!allowedStatuses.includes(status)) {
       return res.status(400).json({
-        message: `Invalid status: {status}`,
+        message: `Invalid status: ${status}`,
       });
     }
     const toUser = await User.findById(toUserId);
