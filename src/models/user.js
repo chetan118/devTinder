@@ -60,13 +60,6 @@ const userSchema = new mongoose.Schema(
       default:
         "https://png.pngtree.com/png-vector/20190223/ourmid/pngtree-profile-line-black-icon-png-image_691051.jpg",
       validate(photoUrl) {
-        try {
-          new URL(photoUrl);
-        } catch (e) {
-          throw new Error(`${photoUrl} is not a valid url!`);
-        }
-      },
-      validate(photoUrl) {
         if (!validator.isURL(photoUrl)) {
           throw new Error("Invalid Photo URL: " + photoUrl);
         }
