@@ -97,6 +97,11 @@ userSchema.methods.validatePassword = async function (passwordInputByUser) {
   return isPasswordValid;
 };
 
+/**
+ * Generates a signed JWT for the user.
+ * The token payload contains the user's _id and expires in 7 days.
+ * @returns {Promise<string>} Signed JWT token string
+ */
 userSchema.methods.getJWT = async function () {
   const user = this;
 
