@@ -6,6 +6,25 @@ This repository will comprise of backend APIs and features built around them.
 
 The APIs will be consumed by the frontend app in [DevTinder-Web](https://github.com/chetan118/devTinder-web).
 
+## API Routes
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/signup` | Register a new user |
+| POST | `/login` | Authenticate and receive a session cookie |
+| POST | `/logout` | Clear the session cookie |
+| GET | `/profile/view` | Get the authenticated user's profile |
+| PATCH | `/profile/edit` | Update profile fields |
+| PATCH | `/profile/password` | Change password |
+| POST | `/request/send/:status/:toUserId` | Send an interested/ignored request |
+| POST | `/request/review/:status/:requestId` | Accept or reject a received request |
+| GET | `/user/requests/received` | List pending incoming requests |
+| GET | `/user/connections` | List accepted connections |
+| GET | `/user/feed` | Get paginated user feed |
+| GET | `/chat/fetch/:targetUserId` | Fetch chat history with a user |
+| POST | `/payment/create-order` | Create a Razorpay payment order |
+| POST | `/payment/webhook` | Handle Razorpay payment webhook |
+
 ## Getting Started
 
 ### Prerequisites
