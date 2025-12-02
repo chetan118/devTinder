@@ -21,7 +21,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json()); // middleware for converting JSON data in req.body to JS object
+app.use(express.json({ limit: "50kb" })); // middleware for converting JSON data in req.body to JS object
 app.use(cookieParser()); // middleware for parsing cookies in requests
 
 app.use("/chat", chatRouter);
