@@ -27,7 +27,9 @@ authRouter.post("/signup", async (req, res) => {
     res.cookie("token", token, {
       expires: new Date(Date.now() + 7 * 24 * 3600000),
     });
-    res.json({ message: "User Saved to the Database", data: savedUser });
+    const userObj = savedUser.toObject();
+    delete userObj.password;
+    res.json({ message: "User Saved to the Database", data: userObj });
   } catch (err) {
     res.status(400).send("Failed to save User to the Database " + err.message);
   }
