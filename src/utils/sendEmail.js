@@ -40,8 +40,8 @@ const createSendEmailCommand = (toAddress, fromAddress, subject, body) => {
 
 const run = async (subject, body) => {
   const sendEmailCommand = createSendEmailCommand(
-    "chetan.sakpal@gmail.com",
-    "hello@chetansakpal.com",
+    process.env.EMAIL_TO,
+    process.env.EMAIL_FROM,
     subject,
     body
   );
