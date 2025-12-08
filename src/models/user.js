@@ -85,6 +85,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+/**
+ * Compares the provided plain-text password against the stored bcrypt hash.
+ * @param {string} passwordInputByUser - The plain-text password to verify
+ * @returns {Promise<boolean>} True if the password matches, false otherwise
+ */
 userSchema.methods.validatePassword = async function (passwordInputByUser) {
   const user = this;
 
