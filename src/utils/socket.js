@@ -53,7 +53,7 @@ const initializeSocket = (server) => {
         }
       }
     );
-    socket.on("disconnect", () => {});
+    socket.on("disconnect", () => { console.log("Socket disconnected:", socket.id); });
   });
 };
 
