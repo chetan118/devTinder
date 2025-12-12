@@ -25,6 +25,7 @@ const initializeSocket = (server) => {
     socket.on(
       "sendMessage",
       async ({ firstName, lastName, userId, targetUserId, text }) => {
+        if (!text || !text.trim()) return;
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(firstName + " : " + text);
