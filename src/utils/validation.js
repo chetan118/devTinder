@@ -2,7 +2,7 @@ const validator = require("validator");
 
 const validateSignupData = (req) => {
   const { firstName, lastName, emailId, password } = req.body;
-  if (!firstName || !lastName) {
+  if (!firstName || !firstName.trim() || !lastName || !lastName.trim()) {
     throw new Error("Invalid Name");
   }
   if (!validator.isEmail(emailId)) {
