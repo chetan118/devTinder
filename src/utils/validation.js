@@ -1,7 +1,7 @@
 const validator = require("validator");
 
 const validateSignupData = (req) => {
-  const { firstName, lastName, emailId, password } = req.body;
+  const { firstName, lastName, emailId, password, skills } = req.body;
   if (!firstName || !firstName.trim() || !lastName || !lastName.trim()) {
     throw new Error("Invalid Name");
   }
@@ -10,6 +10,9 @@ const validateSignupData = (req) => {
   }
   if (!validator.isStrongPassword(password)) {
     throw new Error("Please enter a strong password");
+  }
+  if (skills && (!Array.isArray(skills) || skills.length > 10)) {
+    throw new Error("Skills must be an array with at most 10 items");
   }
 };
 
