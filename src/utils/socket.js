@@ -44,11 +44,11 @@ const initializeSocket = (server) => {
           }
           chat.messages.push({
             senderId: userId,
-            text,
+            text: trimmedText,
           });
           await chat.save();
 
-          io.to(roomId).emit("messageReceived", { firstName, lastName, text });
+          io.to(roomId).emit("messageReceived", { firstName, lastName, text: trimmedText });
         } catch (err) {
           console.log("Error saving message to the database", err);
         }
