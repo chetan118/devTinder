@@ -41,6 +41,6 @@ connectDB()
       console.log(`Server is running and listening on port ${process.env.PORT}...`);
     });
   })
-  .catch(() => {
-    console.log("Database connection failed!!!");
+  .catch((err) => {
+    console.error("MongoDB connection failed:", err.message);
   });
