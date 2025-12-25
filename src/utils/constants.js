@@ -3,4 +3,6 @@ const membershipAmount = {
   gold: 500,
 };
 
-module.exports = { membershipAmount };
+const COOKIE_EXPIRY_DAYS = 7;
+
+module.exports = { membershipAmount, COOKIE_EXPIRY_DAYS };
