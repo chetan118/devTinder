@@ -25,6 +25,23 @@ The APIs will be consumed by the frontend app in [DevTinder-Web](https://github.
 | POST | `/payment/create-order` | Create a Razorpay payment order |
 | POST | `/payment/webhook` | Handle Razorpay payment webhook |
 
+## Environment Variables
+
+Copy `.env.example` to `.env` and configure the following variables before starting the server:
+
+| Variable | Required | Description |
+|---|---|---|
+| `PORT` | No | Port the server listens on (default: 7777) |
+| `DB_CONNECTION_SECRET` | Yes | MongoDB Atlas connection string |
+| `JWT_SECRET` | Yes | Secret key for signing JWT tokens (use a long random string) |
+| `ALLOWED_ORIGIN` | No | Frontend CORS origin (default: http://localhost:5173) |
+| `EMAIL_TO` | No | Recipient email for daily digest notifications |
+| `EMAIL_FROM` | No | Verified sender email address in AWS SES |
+| `RAZORPAY_KEY_ID` | No | Razorpay API key ID (for payment features) |
+| `RAZORPAY_KEY_SECRET` | No | Razorpay API key secret |
+| `AWS_ACCESS_KEY_ID` | No | AWS IAM access key (for SES email sending) |
+| `AWS_SECRET_ACCESS_KEY` | No | AWS IAM secret access key |
+
 ## Getting Started
 
 ### Prerequisites
