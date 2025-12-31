@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const { User } = require("../models/user");
 const { validateSignupData } = require("../utils/validation");
+const { COOKIE_EXPIRY_MS } = require("../utils/constants");
 
 const authRouter = express.Router();
 
@@ -25,7 +26,7 @@ authRouter.post("/signup", async (req, res) => {
     const savedUser = await user.save();
     const token = await savedUser.getJWT();
     res.cookie("token", token, {
-      expires: new Date(Date.now() + 7 * 24 * 3600000),
+      expires: new Date(Date.now() + COOKIE_EXPIRY_MS),
       httpOnly: true,
     });
     const userObj = savedUser.toObject();
@@ -52,7 +53,7 @@ authRouter.post("/login", async (req, res) => {
     }
     const token = await user.getJWT();
     res.cookie("token", token, {
-      expires: new Date(Date.now() + 7 * 24 * 3600000),
+      expires: new Date(Date.now() + COOKIE_EXPIRY_MS),
       httpOnly: true,
     });
     res.send(user);
