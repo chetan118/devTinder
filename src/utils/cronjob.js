@@ -27,8 +27,12 @@ cron.schedule("0 8 * * *", async () => {
         "There are pending requests for " +
         email +
         ". Please accept or reject them from DevTinder.";
-      const emailRes = await sendEmail.run(subject, body);
-      console.log(emailRes);
+      try {
+        const emailRes = await sendEmail.run(subject, body);
+        console.log(emailRes);
+      } catch (emailErr) {
+        console.error("Failed to send email to " + email + ":", emailErr.message);
+      }
     }
   } catch (err) {
     console.log(err);
