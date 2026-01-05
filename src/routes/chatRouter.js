@@ -26,7 +26,7 @@ chatRouter.get("/fetch/:targetUserId", userAuth, async (req, res) => {
       });
       await chat.save();
     }
-    res.json(chat);
+    res.json({ ...chat.toObject(), messages: chat.messages.slice(-100) });
   } catch (err) {
     res.status(400).json({ msg: "Error fetching chat history" });
   }
