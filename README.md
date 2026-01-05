@@ -91,6 +91,31 @@ npm start
 
 The API will be available at `http://localhost:7777`.
 
+## Development Workflow
+
+### Start in Development Mode
+
+```bash
+npm run dev
+```
+
+Uses `nodemon` for hot-reloading on file changes.
+
+### Start in Production Mode
+
+```bash
+npm start
+```
+
+### Using PM2 (for server deployment)
+
+```bash
+npm install pm2 -g
+pm2 start npm --name "devtinder-backend" -- start
+pm2 logs
+pm2 restart devtinder-backend
+```
+
 ## References
 
 - https://namastedev.com/learn/namaste-node
