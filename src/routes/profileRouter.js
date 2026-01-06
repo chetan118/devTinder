@@ -19,6 +19,10 @@ profileRouter.patch("/edit", userAuth, async (req, res) => {
     if (!validateProfileEditData(req)) {
       throw new Error("Invalid edit request");
     }
+    const ALLOWED_GENDERS = ["male", "female", "other"];
+    if (req.body.gender && !ALLOWED_GENDERS.includes(req.body.gender)) {
+      throw new Error("Invalid gender value");
+    }
     const user = req.user;
     Object.keys(req.body).forEach(
       (field) => (req.user[field] = req.body[field])
