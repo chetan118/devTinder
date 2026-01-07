@@ -4,8 +4,11 @@ const MAX_SKILLS = 10;
 
 const validateSignupData = (req) => {
   const { firstName, lastName, emailId, password, skills } = req.body;
-  if (!firstName || !firstName.trim() || !lastName || !lastName.trim()) {
-    throw new Error("Invalid Name");
+  if (!firstName || !firstName.trim()) {
+    throw new Error("First name is required");
+  }
+  if (!lastName || !lastName.trim()) {
+    throw new Error("Last name is required");
   }
   if (!validator.isEmail(emailId)) {
     throw new Error("Invalid Email address");
