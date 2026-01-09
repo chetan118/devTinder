@@ -30,9 +30,6 @@ const initializeSocket = (server) => {
           const roomId = getSecretRoomId(userId, targetUserId);
           console.log(firstName + " : " + text);
 
-          // TODO : Check if userId and targetUserId are connected
-          // i.e. existing connection request in accepted state
-
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },
           });
