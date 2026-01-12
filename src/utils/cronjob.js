@@ -5,6 +5,7 @@ const sendEmail = require("./sendEmail");
 
 // This job will run at 8 AM in the morning everyday
 cron.schedule("0 8 * * *", async () => {
+  console.log(`Running daily email job for ${new Date().toDateString()}`);
   // Send emails to all people who got requests the previous day
   try {
     const yesterday = subDays(new Date(), 1);
