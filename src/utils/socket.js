@@ -9,6 +9,13 @@ const initializeSocket = (server) => {
     },
   });
 
+  /**
+   * Generates a deterministic SHA-256 room ID for a pair of users.
+   * Sorting IDs ensures the same room is used regardless of who initiates.
+   * @param {string} userId
+   * @param {string} targetUserId
+   * @returns {string} hex-encoded SHA-256 hash
+   */
   const getSecretRoomId = (userId, targetUserId) => {
     return crypto
       .createHash("sha256")
