@@ -58,7 +58,7 @@ authRouter.post("/login", async (req, res) => {
     });
     res.send(user);
   } catch (err) {
-    res.status(400).send("Failed to login - " + err.message);
+    res.status(400).json({ message: "Failed to login - " + err.message });
   }
 });
 
