@@ -13,6 +13,10 @@ const paymentRouter = express.Router();
 paymentRouter.post("/create", userAuth, async (req, res) => {
   try {
     const { membershipType } = req.body;
+    const allowedMembershipTypes = ["silver", "gold"];
+    if (!allowedMembershipTypes.includes(membershipType)) {
+      return res.status(400).json({ message: "Invalid membership type" });
+    }
     const { firstName, lastName, emailId } = req.user;
 
     const order = await razorpayInstance.orders.create({
