@@ -24,6 +24,9 @@ profileRouter.patch("/edit", userAuth, async (req, res) => {
       throw new Error("Invalid gender value");
     }
     const user = req.user;
+    if (req.body.firstName) req.body.firstName = req.body.firstName.trim();
+    if (req.body.lastName) req.body.lastName = req.body.lastName.trim();
+    if (req.body.about) req.body.about = req.body.about.trim();
     Object.keys(req.body).forEach(
       (field) => (req.user[field] = req.body[field])
     );
