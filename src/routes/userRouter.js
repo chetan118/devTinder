@@ -68,6 +68,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
       hideUsersFromFeed.add(connectionRequest.toUserId.toString());
       hideUsersFromFeed.add(connectionRequest.fromUserId.toString());
     });
+    // Exclude users the logged-in user has already interacted with ($nin = not in set)
     const users = await User.find({
       _id: { $nin: Array.from(hideUsersFromFeed) },
     })
