@@ -28,6 +28,7 @@ authRouter.post("/signup", async (req, res) => {
     res.cookie("token", token, {
       expires: new Date(Date.now() + COOKIE_EXPIRY_MS),
       httpOnly: true,
+      sameSite: "strict",
     });
     const userObj = savedUser.toObject();
     delete userObj.password;
@@ -55,6 +56,7 @@ authRouter.post("/login", async (req, res) => {
     res.cookie("token", token, {
       expires: new Date(Date.now() + COOKIE_EXPIRY_MS),
       httpOnly: true,
+      sameSite: "strict",
     });
     res.send(user);
   } catch (err) {
