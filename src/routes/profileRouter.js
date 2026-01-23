@@ -59,7 +59,7 @@ profileRouter.patch("/password", userAuth, async (req, res) => {
       data: user,
     });
   } catch (err) {
-    res.status(400).send("Failed to update password - " + err.message);
+    res.status(400).json({ message: "Failed to update password - " + err.message });
   }
 });
 
