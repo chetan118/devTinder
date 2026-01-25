@@ -33,7 +33,8 @@ userRouter.get("/connections", userAuth, async (req, res) => {
       ],
     })
       .populate("fromUserId", USER_SAFE_DATA)
-      .populate("toUserId", USER_SAFE_DATA);
+      .populate("toUserId", USER_SAFE_DATA)
+      .sort({ createdAt: -1 });
 
     const data = connectionRequests.map((row) => {
       if (row.fromUserId._id.equals(loggedInUser._id)) {
