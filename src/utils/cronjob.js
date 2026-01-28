@@ -38,4 +38,5 @@ cron.schedule("0 8 * * *", async () => {
   } catch (err) {
     console.log(err);
   }
+  console.log("Daily email job completed successfully");
 });
