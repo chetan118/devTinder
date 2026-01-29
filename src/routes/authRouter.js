@@ -7,6 +7,7 @@ const { COOKIE_EXPIRY_MS } = require("../utils/constants");
 
 const authRouter = express.Router();
 
+// Note: clients should use autocomplete="email" on email inputs for better UX
 authRouter.post("/signup", async (req, res) => {
   try {
     // Validation of Data
