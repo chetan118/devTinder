@@ -73,6 +73,7 @@ const userSchema = new mongoose.Schema(
       maxLength: 2000,
       trim: true,
     },
+    // Array of skill strings; maximum 10 items enforced at the validation layer
     skills: {
       type: [String],
     },
