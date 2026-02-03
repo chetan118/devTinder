@@ -19,7 +19,7 @@ const userAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    res.status(401).send("Failed to authenticate user - " + err.message);
+    res.status(401).json({ message: "Authentication failed: " + err.message });
   }
 };
 
