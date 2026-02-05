@@ -27,6 +27,9 @@ profileRouter.patch("/edit", userAuth, async (req, res) => {
     if (req.body.firstName) req.body.firstName = req.body.firstName.trim();
     if (req.body.lastName) req.body.lastName = req.body.lastName.trim();
     if (req.body.about) req.body.about = req.body.about.trim();
+    if (req.body.skills && Array.isArray(req.body.skills)) {
+      req.body.skills = req.body.skills.map(s => s.trim()).filter(Boolean);
+    }
     Object.keys(req.body).forEach(
       (field) => (req.user[field] = req.body[field])
     );
