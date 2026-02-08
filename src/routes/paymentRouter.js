@@ -77,7 +77,7 @@ paymentRouter.post("/webhook", async (req, res) => {
 
     res.status(200).json({ msg: "Webhook received successfully" });
   } catch (err) {
-    res.status(500).json({ msg: err.message });
+    res.status(400).json({ message: err.message });
   }
 });
 
