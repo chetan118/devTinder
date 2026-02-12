@@ -2,6 +2,12 @@ const validator = require("validator");
 
 const MAX_SKILLS = 10;
 
+/**
+ * Validates signup request data.
+ * Checks: firstName and lastName are non-empty, emailId is a valid email,
+ * password meets strength requirements, and skills (if provided) is an array of ≤10 items.
+ * @throws {Error} if any validation rule fails
+ */
 const validateSignupData = (req) => {
   const { firstName, lastName, emailId, password, skills } = req.body;
   if (!firstName || !firstName.trim()) {
