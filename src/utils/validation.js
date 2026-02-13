@@ -27,6 +27,11 @@ const validateSignupData = (req) => {
   }
 };
 
+/**
+ * Validates profile edit request data.
+ * Only allows updates to: firstName, lastName, emailId, age, gender, photoUrl, about, skills.
+ * @returns {boolean} true if all fields are in the allowed list
+ */
 const validateProfileEditData = function (req) {
   const allowedUpdateFields = [
     "firstName",
