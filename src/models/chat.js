@@ -15,6 +15,10 @@ const messageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+/**
+ * Chat model storing conversation history between two users.
+ * Each document holds two participant IDs and an array of messages in ascending order.
+ */
 const chatSchema = new mongoose.Schema(
   {
     participants: [
