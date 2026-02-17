@@ -4,6 +4,7 @@ const { User } = require("../models/user");
 const { ConnectionRequest } = require("../models/connectionRequest");
 
 const userRouter = express.Router();
+const { MAX_FEED_PAGE_SIZE } = require("../utils/constants");
 const USER_SAFE_DATA = "firstName lastName age gender photoUrl about skills membershipType";
 
 userRouter.get("/requests/received", userAuth, async (req, res) => {
