@@ -32,10 +32,11 @@ const initializeSocket = (server) => {
     socket.on(
       "sendMessage",
       async ({ firstName, lastName, userId, targetUserId, text }) => {
-        if (!text || !text.trim()) return;
+        const trimmedText = text?.trim();
+        if (!trimmedText) return;
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
-          console.log(firstName + " : " + text);
+          console.log(firstName + " : " + trimmedText);
 
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },
