@@ -1,6 +1,6 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
-const { instance: razorpayInstance } = require("../utils/razorpay.js"); // destructure and rename the razorpay instance object
+const razorpay = require("../utils/razorpay.js");
 const { Payment } = require("../models/payment");
 const { membershipAmount } = require("../utils/constants.js");
 const {
@@ -19,7 +19,7 @@ paymentRouter.post("/create", userAuth, async (req, res) => {
     }
     const { firstName, lastName, emailId } = req.user;
 
-    const order = await razorpayInstance.orders.create({
+    const order = await razorpay.instance.orders.create({
       amount: membershipAmount[membershipType] * 100,
       currency: "INR",
       receipt: "receipt#1",
